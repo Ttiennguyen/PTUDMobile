@@ -5,6 +5,8 @@ import { ScrollView } from 'react-native-virtualized-view';
 // import { LEADERS } from '../shared/leaders';
 import { baseUrl } from '../shared/baseUrl';
 import Loading from './LoadingComponent';
+import * as Animatable from 'react-native-animatable';
+
 
 class RenderHistory extends Component {
   render() {
@@ -80,12 +82,16 @@ class About extends Component {
   render() {
     return (
       <ScrollView>
-        <RenderHistory />
+        <Animatable.View animation='fadeInDown' duration={2000} delay={1000}>
+          <RenderHistory />
+        </Animatable.View>
         {/* <RenderLeadership leaders={this.state.leaders} /> */}
-        <RenderLeadership
-          leaders={this.props.leaders.leaders}
-          isLoading={this.props.leaders.isLoading}
-          errMess={this.props.leaders.errMess} />
+        <Animatable.View animation='fadeInUp' duration={2000} delay={1000}>
+          <RenderLeadership
+            leaders={this.props.leaders.leaders}
+            isLoading={this.props.leaders.isLoading}
+            errMess={this.props.leaders.errMess} />
+        </Animatable.View>
       </ScrollView>
     );
   }
