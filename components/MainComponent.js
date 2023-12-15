@@ -5,18 +5,42 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem  } from '@react-navigation/drawer';
 import { baseUrl } from '../shared/baseUrl';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 
 import Login from './LoginComponent';
+import Register from './RegisterComponent';
+function TabNavigatorScreen() {
+  const TabNavigator = createBottomTabNavigator();
+  return (
+    <TabNavigator.Navigator initialRouteName='Login'>
+      <TabNavigator.Screen name='Login' component={Login}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => (<Icon name='sign-in' type='font-awesome' size={size} color={color} />)
+        }} />
+      <TabNavigator.Screen name='Register' component={Register}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => (<Icon name='user-plus' type='font-awesome' size={size} color={color} />)
+        }} />
+    </TabNavigator.Navigator>
+  );
+}
 function LoginNavigatorScreen() {
   const LoginNavigator = createStackNavigator();
   return (
-    <LoginNavigator.Navigator initialRouteName='Login'
+    <LoginNavigator.Navigator 
+    // initialRouteName='Login'
+        initialRouteName='LoginRegister'
       screenOptions={{
         headerStyle: { backgroundColor: '#7cc' },
         headerTintColor: '#fff',
         headerTitleStyle: { color: '#fff' }
       }}>
-      <LoginNavigator.Screen name='Login' component={Login}
+      <LoginNavigator.Screen 
+      // name='Login' component={Login}
+         name='LoginRegister' component={TabNavigatorScreen}
         options={({ navigation }) => ({
           headerTitle: 'Login',
           headerLeft: () => (<Icon name='menu' size={36} color='#fff' onPress={() => navigation.toggleDrawer()} />)
